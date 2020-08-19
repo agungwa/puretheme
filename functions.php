@@ -28,7 +28,9 @@ class puretheme{
 
     public function init()
     {
+		add_action( 'after_setup_theme', array( $this, 'pth_setup_themes' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'pth_register_styles' ) );
+		add_action( 'init', array( $this, 'pth_custom_post_archive' ) );
     }
 
     function pth_register_styles()
@@ -54,14 +56,83 @@ class puretheme{
         wp_enqueue_script('pth-lightbox-min-js', get_template_directory_uri(). "/assets/lib/lightbox/js/lightbox.min.js", array(), $this->version(), true);
         wp_enqueue_script('pth-lightbox-min-js', get_template_directory_uri(). "/assets/js/contactform.js", array(), $this->version(), true);
         wp_enqueue_script('pth-main', get_template_directory_uri(). "/assets/js/main.js", array(), $this->version(), $this->version(), true);
-    }
-   
+	}
+	
+		// A custom function that calls register_post_type
+		function pth_custom_post_archive() {
+		// Set various pieces of text, $labels is used inside the $args array
+		$labels = array(
+			'name' => _x( 'Archive', 'post type general name' ),
+			'singular_name' => _x( 'Archive', 'post type singular name' ),
+		);
+		// Set various pieces of information about the post type
+		$args = array(
+			'labels' => $labels,
+			'description' => 'My custom post type',
+			'public' => true,
+		);
+		// Register the movie post type with all the information contained in the $arguments array
+		register_post_type( 'archive', $args );
+	}
+
+
+    
+
+    public function pth_setup_themes()
+    {
+
+		add_theme_support( 'pageviews' );
+		add_theme_support( 'custom-logo' );
+		add_theme_support( 'post-image' );
+		// Add default posts and comments RSS feed links to head.
+		add_theme_support( 'automatic-feed-links' );
+
+		/*
+		 * Let WordPress manage the document title.
+		 * By adding theme support, we declare that this theme does not use a
+		 * hard-coded <title> tag in the document head, and expect WordPress to
+		 * provide it for us.
+		 */
+		add_theme_support( 'title-tag' );
+
+		/*
+		 * Enable support for Post Thumbnails on posts and pages.
+		 *
+		 * @link http://codex.wordpress.org/Function_Reference/add_theme_support#Post_Thumbnails
+		 */
+		add_theme_support( 'post-thumbnails' );
+		set_post_thumbnail_size( 950, 850, true ); // used on page template category
+
+		// add_image_size( 'video-thumb', 265, 185 ); // (cropped)
+
+		/*
+		 * Switch default core markup for search form, comment form, and comments
+		 * to output valid HTML5.
+		 */
+		add_theme_support( 'html5', array(
+			'search-form',
+			'comment-form',
+			'comment-list',
+			'gallery',
+			'caption',
+		) );
+
+		register_nav_menus(
+			array(
+				'dekstop' => __( 'dekstop', 'PureTheme' ),
+				'social' => __( 'Social Links Menu', 'PureTheme' ),
+			)
+		);
+
+	}
+
 }
+
+
 
 function PTHEME(){
 	if( ! class_exists('puretheme') ){
-		// what required
-		// die();
+
 	} else {
 		return puretheme::instance();
 	}
