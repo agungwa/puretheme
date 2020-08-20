@@ -1,5 +1,4 @@
- 
-<div class="row justify-content-center">
+ <div class="row justify-content-center">
   <div class="col-lg-8">
 
     <div class="wow fadeInUp">

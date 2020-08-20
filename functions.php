@@ -31,6 +31,7 @@ class puretheme{
 		add_action( 'after_setup_theme', array( $this, 'pth_setup_themes' ) );
         add_action( 'wp_enqueue_scripts', array( $this, 'pth_register_styles' ) );
 		add_action( 'init', array( $this, 'pth_custom_post_archive' ) );
+		add_action( 'init', array( $this, 'pth_widget_areas' ) );
     }
 
     function pth_register_styles()
@@ -74,9 +75,6 @@ class puretheme{
 		// Register the movie post type with all the information contained in the $arguments array
 		register_post_type( 'archive', $args );
 	}
-
-
-    
 
     public function pth_setup_themes()
     {
@@ -124,6 +122,21 @@ class puretheme{
 			)
 		);
 
+	}
+
+	public function pth_widget_areas(){
+
+		register_sidebar(
+			array(
+				'name'	=> 'Sidebar Area',
+				'id'	=> 'sidebar',
+				'description'	=> 'Sidebar widget area',
+				'before_title' 	=> '',
+				'after_title'	=> '',
+				'before_widget'	=> '',
+				'after_widget'	=> '',
+			)
+		);
 	}
 
 }

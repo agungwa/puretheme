@@ -322,6 +322,7 @@ div.comment:first-of-type {
 
 #header {
   height: 110px;
+  margin-bottom: 100px;
   transition: all 0.5s;
   z-index: 997;
   transition: all 0.5s;
@@ -896,6 +897,17 @@ Header section
 #call-to-action .cta-btn:hover {
   background: #1bb1dc;
   border: 3px solid #1bb1dc;
+}
+
+
+/* Archive Section
+--------------------------------*/
+.panding-1 {
+  padding-top: 100px!important;
+
+}
+.archives {
+  padding: 100px 0;
 }
 
 /* Features Section
