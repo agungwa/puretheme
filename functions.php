@@ -32,6 +32,8 @@ class puretheme{
         add_action( 'wp_enqueue_scripts', array( $this, 'pth_register_styles' ) );
 		add_action( 'init', array( $this, 'pth_custom_post_archive' ) );
 		add_action( 'init', array( $this, 'pth_widget_areas' ) );
+		
+		add_shortcode( 'pth',  array( $this, 'pth_short' ) );
     }
 
     function pth_register_styles()
@@ -138,6 +140,18 @@ class puretheme{
 			)
 		);
 	}
+
+	public function pth_short( $atts , $content = null ) {
+			
+		$txt = "this is my code ";
+		shortcode_atts(
+			array(
+				'code' => 1,
+			), $atts
+		);
+			
+			return str_repeat( $txt, $atts['code'] );
+		}
 
 }
 
